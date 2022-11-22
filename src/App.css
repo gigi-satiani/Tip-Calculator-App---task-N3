@@ -1,38 +1,225 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 .App {
-  text-align: center;
+    width: 100%;
+    height: 100vh;
+    background-color: hsl(180, 60%, 84%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.mainLogo {
+    width: 100%;
+    padding-bottom: 50px;
+    padding-top: 10px;
+    text-align: center;
+}
+.mainLogo img {
+    width: 100px;
+}
+.cardsParent {
+    width: 950px;
+    display: flex;
+    gap: 10px;
+    border-radius: 10px;
+    background-color: hsl(0, 0%, 100%);
+}
+/*------ card 1 -------*/
+.firstCard {
+    width: 45%;
+    height: 425px;
+    padding: 20px;
+}
+.billDiv {
+    padding-top: 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+span {
+    width: 100%;
+    color: hsl(186, 14%, 43%);
+    font-family: monospace;
+    font-size: 16px;
+}
+.billInput {
+    background: url(./images/dollar.svg) no-repeat 15px;
+    width: 100%;
+    height: 40px;
+    text-align: right;
+    font-size: 18px;
+    font-weight: 600;
+    color: hsl(186, 14%, 43%);
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background-color: hsl(180, 14%, 80%);
+    padding: 10px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.billInput:hover {
+   border: 2px solid hsl(172, 67%, 45%);
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.selectTipParent {
+    padding-top: 30px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.selectTipParent span {
+    flex-basis: 100%;
+}
+.selectTipParent button {
+    width: 100px;
+    height: 40px;
+    background-color: hsl(183, 100%, 15%);
+    color: hsl(0, 0%, 100%);
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+.selectTipParent button:hover {
+    background-color: hsl(172, 64%, 61%);
+    color: hsl(183, 100%, 15%);
+}
+.selectTipParent input {
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+    font-weight: 600;
+    color: hsl(186, 14%, 43%);
+    border: none;
+    outline: none;
+    text-align: right;
+    padding: 5px;
+}
+.numberOfPeopleParent {
+    padding-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.numberOfPeopleParent span {
+    flex-basis: 50%;
+    width: 50%;
+    flex-grow: 2;
+}
+.redAlertZero {
+    text-align: right;
+    display: none;
+}
+.peopleInput {
+    background: url(./images/person.svg) no-repeat 15px;
+    width: 100%;
+    height: 40px;
+    text-align: right;
+    font-size: 18px;
+    font-weight: 600;
+    color: hsl(186, 14%, 43%);
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    background-color: hsl(180, 14%, 80%);
+    padding: 10px;
+    margin-top: 10px;
+}
+.peopleInput:hover {
+    border: 2px solid hsl(172, 67%, 45%);
+ }
+
+/*------ card 2 -------*/
+
+.secondCard {
+    width: 45%;
+    height: 400px;
+    padding: 20px;
+    margin: 30px;
+    border-radius: 10px;
+    background-color: hsl(183, 100%, 15%);
+}
+.tipParent, .totalParent  {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+.tipParent span, .totalParent span {
+    color: #fff;
+}
+.amount {
+    text-align: left;
+    padding: 10px;
+    line-height: 1.5;
+}
+.person {
+    font-size: 13px;
+    font-weight: 200;
+    color: rgb(144, 135, 135) !important;
+}
+.amountValue {
+   font-size: 50px;
+   color: hsl(172, 67%, 45%) !important;
+   background-color: hsl(183, 100%, 15%);
+}
+.amountValue img {
+    width: 20px;
+}
+.reseter {
+    width: 100%;
+    height: 40px;
+    background-color: hsl(172, 67%, 45%);
+    color: hsl(183, 100%, 15%);
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    margin-top: 150px;
+}
+.reseter:hover {
+    background-color: hsl(172, 45%, 64%);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@media screen and (max-width: 375px) {
+    .App {
+        display: block;
+    }
+    .cardsParent {
+        flex-direction: column;
+        width: 100%;
+        border-radius: 20px;
+        align-items: center;
+        justify-content: center;
+    }
+    .firstCard {
+        width: 100%;
+    }
+    .selectTipParent button {
+        width: 150px;
+    }
+    .secondCard {
+        width: 90%;
+        height: 100%;
+        margin: 0;
+    }
+    .reseter {
+        margin-top: 15px;
+    }
 }
