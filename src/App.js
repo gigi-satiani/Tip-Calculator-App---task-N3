@@ -1,22 +1,34 @@
 import './App.css';
 import logo from './images/logo.svg'
 import dollar from './images/dollar.svg'
-import { useState } from 'react';
+import React, { useState } from "react";
 
 function App() {
-  // const [regex, setRegex] = useState('');
-  // const [regError, setRegError] = useState(false);
+  const [focus, setFocus] = useState(-1);
+  const [people, setPeople] = useState(1);
+  const [bill, setBill] = useState(0);
+  const [procent, setProcent] = useState(0);
+  const [customProcent, setCustomProcent] = useState(0);
 
-  // const validate = () => {
-  //   if (noZero.test(regex)) {
-  //     setRegError(true)
-  //   }
-  // }
-
-  const [activeButtonIndex, setActiveButtonIndex] = useState(-1);
   function buttonClick(clicker) {
-    setActiveButtonIndex(clicker);
+    setFocus(clicker);
   }
+  function calculatePro(index) {
+    setProcent(buttons[index].percentage);
+  }
+  function reseter() {
+    setFocus(-1)
+    setPeople(1);
+    setBill(0);
+    setProcent(0);
+    setCustomProcent(0);
+  }
+
+  const ButtonTipAmount = bill * procent / 100 / people
+  const buttonTotal = bill / people + ButtonTipAmount 
+
+  const customTiPAmount = bill * customProcent / 100 / people;
+  const customTotal = bill / people + customTiPAmount;
 
 
   return (
@@ -29,79 +41,147 @@ function App() {
        <form>
         <div className='billDiv'>
           <span>Bill</span>
-          <input type='number'className='billInput'></input>
+           <InputFirst
+            setBill={setBill}
+            bill={bill}
+          />
         </div>
         <div className='selectTipParent'>
          <span>Select Tip %</span>
          <Buttonsgroup
-              buttonClick={buttonClick}
-              activeButtonIndex={activeButtonIndex}
-              />
-         <input type='number' placeholder='Custom'></input>
+          buttonClick={buttonClick}
+          focus={focus}
+          people={people}
+          calculatePro={calculatePro}
+          setCustomProcent={setCustomProcent}
+         />
+         <CustomInput
+         setFocus={setFocus}
+         setCustomProcent={setCustomProcent}
+         customProcent={customProcent}
+         buttonTotal={buttonTotal}
+         customTotal={customTotal}
+         />
         </div>
        <div className='numberOfPeopleParent'>
          <span>Number of People</span>
-         <span className='redAlertZero'>Can't be zero</span>
+         <span className='redAlertZero' style={{display: people >= 1 ? 'none' : 'block'}}>Can't be zero</span>
          <PeoppleInput
-          // validate={validate}
+          setPeople={setPeople}
+          people={Number(people)}
          />
         </div>
        </form>
       </div>
-
+{/* --------------------- */}
       <div className='secondCard'>
         <div className='tipParent'>
           <span className='amount'>Tip Amount <br/><span className='person'>/ person</span></span>
           <span className='amountValue'>
-            <img src={dollar}></img>0.00
+            <img src={dollar}></img>{Number(customTiPAmount ? customTiPAmount : ButtonTipAmount).toFixed(2)}
           </span>
         </div>
         <div className='totalParent'>
-          <span className='amount'>Total<br/> <span className='person'>/ person</span></span>
-          <span className='amountValue'>
-            <img src={dollar}></img>0.00
-          </span>
+         <PText
+          procent={procent}
+          people={people}
+          buttonTotal={buttonTotal}
+          customTotal={customTotal}
+          focus={focus}
+         />
         </div>
-        <button className='reseter'>RESET</button>
+          <button className='reseter' onClick={reseter}>RESET</button>
       </div>
     </div>
    </div>
   );
 }
 
-const Buttonsgroup = (props) => {
-  console.log('props', props)
-  return buttons.map((button, index) => (
-   <button
-    key={button}
-    onClick={() => props.buttonClick(index)}
-    style={{ background: props.activeButtonIndex === index ? "red" : "" }}>
-    {button}</button>
-  ));
-};
-let buttons = ['5%', '10%','15%','25%','50%'];
-
-
-
-let PeoppleInput = () => {
+const InputFirst = (props) => {
+  function billCalculator(e) {
+    // console.log(props.bill, 'props.bill')
+    props.setBill(e.target.value);
+  }
   return (
-  <input type='number' className='peopleInput'
-  // onKeyUp={(e) => props.setRegex(e.target.value)}
-  ></input>
+    <div>
+      <input type="number" className='billInput'
+      value={props.bill}
+      onChange={(e) => billCalculator(e)}></input>
+    </div>
+  );
+};
+const Buttonsgroup = (props) => {
+  return buttons.map((button, index) => (
+       <button type='button'
+       key={button.percentage}
+       style={{backgroundColor : props.focus === index ? 'hsl(172, 67%, 45%)' : ''}}
+       onClick={(e) => {
+       props.buttonClick(index);
+       props.calculatePro(index);
+       props.setCustomProcent(0);
+      }}>
+      {button.label}</button>
+  ));
+}
+const CustomInput = (props) => {
+  function countProcentAge(e) {
+    // console.log(e.target.value, 'customProcent')
+    props.setFocus(-1)
+    props.setCustomProcent(e.target.value)
+  }
+  return (
+     <input type='number' placeholder='Custom' 
+      value={props.customProcent}
+      onChange={(e) => countProcentAge(e)}>
+     </input>
+  )
+}
+let PeoppleInput = (props) => {
+  function peopleNumber(f) {
+    props.setPeople(f.target.value);
+  }
+  return (
+    <input type='number' className='peopleInput'
+    onChange={(f) => peopleNumber(f)}
+    style={{border: props.people === 0 ? '2px solid red' : ''}}
+    />
   ) 
 }
-
-
-
-// const errorStyles = {
-//   borderEd: {
-//     border: '2px solid red'
-//   },
-//   textRed: {
-//     color: 'red',
-//   },
-// };
-// const noZero = new RegExp(/^[1-9]\d*$/);
+const PText = (props) => {
+  return (
+    <div>
+       <span className='amount'>Total <br/><span className='person'>/ person</span></span>
+       <span className='amountValue'><img src={dollar}></img>{Number((props.focus === -1) ? props.customTotal : props.buttonTotal).toFixed(2)}</span>
+    </div>
+  );
+};
+let buttons = [
+  {
+    label: "5%",
+    percentage: 5,
+    name: "a"
+  },
+  {
+    label: "10%",
+    percentage: 10,
+    name: "b"
+  },
+  {
+    label: "15%",
+    percentage: 15,
+    name: "c"
+  },
+  {
+    label: "20%",
+    percentage: 20,
+    name: "d"
+  },
+  {
+    label: "50%",
+    percentage: 50,
+    name: "e"
+  }
+];
 
 
 export default App;
