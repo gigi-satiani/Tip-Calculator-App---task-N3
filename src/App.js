@@ -133,12 +133,15 @@ const Buttonsgroup = (props) => {
 }
 const CustomInput = (props) => {
   function countProcentAge(e) {
-    // console.log(e.target.value, 'customProcent')
+    console.log(e.target.value, 'customProcent')
     props.setFocus(-1)
     props.setCustomProcent(e.target.value)
+    // if (e.target.value.lenght > 3) {
+    //   Number(e.target.value = props.setCustomProcent(0))
+    // }
   }
   return (
-     <input type='number' placeholder='Custom' 
+     <input type='tel' placeholder='Custom' maxLength='3'
       value={props.customProcent}
       onChange={(e) => countProcentAge(e)}>
      </input>
