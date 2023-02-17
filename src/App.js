@@ -33,7 +33,7 @@ function App() {
   return (
     <div className="App">
       <figure className="mainLogo">
-        <img src={logo}></img>
+        <img alt="" src={logo}></img>
       </figure>
       <div className="cardsParent">
         <div className="firstCard">
@@ -89,7 +89,7 @@ function App() {
                     : "",
               }}
             >
-              <img src={dollar}></img>
+              <img alt="" src={dollar}></img>
               {Number(
                 customTiPAmount ? customTiPAmount : ButtonTipAmount
               ).toFixed(2)}
@@ -202,7 +202,7 @@ const PText = (props) => {
               : "",
         }}
       >
-        <img src={dollar}></img>
+        <img alt="" src={dollar}></img>
         {Number(
           props.focus === -1 ? props.customTotal : props.buttonTotal
         ).toFixed(2)}
