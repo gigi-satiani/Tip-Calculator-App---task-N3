@@ -141,7 +141,7 @@ input[type="number"] {
   padding-left: 40px;
 }
 .peopleInput:hover {
-  outline: 2px solid hsl(172, 67%, 45%);
+  border: 2px solid hsl(172, 67%, 45%);
 }
 
 /*------ card 2 -------*/
